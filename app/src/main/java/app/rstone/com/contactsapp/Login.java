@@ -6,37 +6,34 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static app.rstone.com.contactsapp.Main.MEMPW;
-import static app.rstone.com.contactsapp.Main.MEMSEQ;
-import static app.rstone.com.contactsapp.Main.MEMTAB;
+import static app.rstone.com.contactsapp.Main.*;
 
 public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_login);
+        setContentView(R.layout.login);
         Context ctx = Login.this;
-        findViewById(R.id.login_btn).setOnClickListener(
+        findViewById(R.id.loginBtn).setOnClickListener(
                 (View view)->{
-                    ItemExist exist = new ItemExist(ctx);
+                    ItemExist query = new ItemExist(ctx);
                     EditText x = findViewById(R.id.inputID);
                     EditText y = findViewById(R.id.inputPW);
-                    exist.id = x.getText().toString();
-                    exist.pw = y.getText().toString();
+                    query.id = x.getText().toString();
+                    query.pw = y.getText().toString();
                     new Main.StatusService() {
                         @Override
                         public void perform() {
-                            if(exist.execute()){
+                            if(query.execute()){
                                 Toast.makeText(ctx,"로그인 성공", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(ctx,MemberList.class));
                             }else{
-                                Toast.makeText(ctx,"로그인 실패", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ctx,"로그인 실q패", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(ctx,Login.class));
                             }
                         }
